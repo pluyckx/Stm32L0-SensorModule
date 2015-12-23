@@ -13,6 +13,10 @@
 namespace stm32
 {
 
+/* Implement the class in the header, this way it is optimized out when
+ * optimizations are turned on.
+ */
+
 class Register32Bit
 {
 	public:
@@ -25,9 +29,9 @@ class Register32Bit
 		inline void ClearBits( uint32_t value, uint32_t mask );
 		inline void ClearBits( uint32_t value, uint32_t mask, uint32_t offset );
 
-		inline void SetRegister( uint32_t value );
-		inline void SetRegister( uint32_t value, uint32_t mask );
-		inline void SetRegister( uint32_t value, uint32_t mask, uint32_t offset );
+		inline void Set( uint32_t value );
+		inline void Set( uint32_t value, uint32_t mask );
+		inline void Set( uint32_t value, uint32_t mask, uint32_t offset );
 
 		inline uint32_t GetMask();
 
@@ -78,20 +82,20 @@ void Register32Bit::ClearBits( uint32_t value, uint32_t mask, uint32_t offset )
 	ClearBits( value << offset, mask << offset );
 }
 
-void Register32Bit::SetRegister( uint32_t value )
+void Register32Bit::Set( uint32_t value )
 {
 	*m_register = (value & m_mask);
 }
 
-void Register32Bit::SetRegister( uint32_t value, uint32_t mask )
+void Register32Bit::Set( uint32_t value, uint32_t mask )
 {
 	value = Read( ~mask ) | (value & mask);
-	SetRegister( value );
+	Set( value );
 }
 
-void Register32Bit::SetRegister( uint32_t value, uint32_t mask, uint32_t offset )
+void Register32Bit::Set( uint32_t value, uint32_t mask, uint32_t offset )
 {
-	SetRegister( value << offset, mask << offset );
+	Set( value << offset, mask << offset );
 }
 
 uint32_t Register32Bit::GetMask()

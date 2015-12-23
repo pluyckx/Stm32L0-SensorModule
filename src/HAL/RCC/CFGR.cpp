@@ -5,17 +5,18 @@
  *      Author: pluyckx
  */
 
+#include "../RCC/CFGR.hpp"
+
+#include "../RCC/clock_private.hpp"
 #include "../Register32Bit.hpp"
-#include "clock_private.hpp"
-#include "CFGR.hpp"
 
 namespace stm32
 {
 
-namespace clock
+namespace rcc
 {
 
-clock_t r_clock;
+extern clock_t r_clock;
 
 uint32_t const CFGR::m_offset_mcu_clock_prescaler = 28u;
 uint32_t const CFGR::m_offset_mcu_clock_selection = 24u;
@@ -74,7 +75,7 @@ void CFGR::SetMcuClockOutputPrescaler( McuClockPrescaler prescaler )
 	uint32_t mask = static_cast<uint32_t>( McuClockPrescaler::Mask );
 	uint32_t value = static_cast<uint32_t>( prescaler );
 
-	m_register.SetRegister( value, mask, CFGR::m_offset_mcu_clock_prescaler );
+	m_register.Set( value, mask, CFGR::m_offset_mcu_clock_prescaler );
 }
 
 CFGR::McuClockSelection CFGR::GetMcuClockSelection() const
@@ -90,7 +91,7 @@ void CFGR::SetMcuClockSelection( McuClockSelection selection )
 	uint32_t mask = static_cast<uint32_t>( McuClockPrescaler::Mask );
 	uint32_t value = static_cast<uint32_t>( selection );
 
-	m_register.SetRegister( value, mask, CFGR::m_offset_mcu_clock_selection );
+	m_register.Set( value, mask, CFGR::m_offset_mcu_clock_selection );
 }
 
 CFGR::PllDivision CFGR::GetPllOutputDivision() const
@@ -106,7 +107,7 @@ void CFGR::SetPllOutputDivision( PllDivision division )
 	uint32_t mask = static_cast<uint32_t>( PllDivision::Mask );
 	uint32_t value = static_cast<uint32_t>( division );
 
-	m_register.SetRegister( value, mask, CFGR::m_offset_pll_output_division );
+	m_register.Set( value, mask, CFGR::m_offset_pll_output_division );
 }
 
 CFGR::PllMultiplication CFGR::GetPllOutputMultiplication() const
@@ -122,7 +123,7 @@ void CFGR::SetPllOutputMultiplication( PllMultiplication mul )
 	uint32_t mask = static_cast<uint32_t>( PllMultiplication::Mask );
 	uint32_t value = static_cast<uint32_t>( mul );
 
-	m_register.SetRegister( value, mask, CFGR::m_offset_pll_output_mul );
+	m_register.Set( value, mask, CFGR::m_offset_pll_output_mul );
 }
 
 CFGR::PllSource CFGR::GetPllSource() const
@@ -138,7 +139,7 @@ void CFGR::SetPllSource( PllSource source )
 	uint32_t mask = static_cast<uint32_t>( PllSource::Mask );
 	uint32_t value = static_cast<uint32_t>( source );
 
-	m_register.SetRegister( value, mask, CFGR::m_offset_pll_source );
+	m_register.Set( value, mask, CFGR::m_offset_pll_source );
 }
 
 CFGR::StopWakeUpClock CFGR::GetStopWakeUpClock() const
@@ -154,7 +155,7 @@ void CFGR::SetStopWakeUpClock( StopWakeUpClock clock )
 	uint32_t mask = static_cast<uint32_t>( StopWakeUpClock::Mask );
 	uint32_t value = static_cast<uint32_t>( clock );
 
-	m_register.SetRegister( value, mask, CFGR::m_offset_stop_wakup_clock );
+	m_register.Set( value, mask, CFGR::m_offset_stop_wakup_clock );
 }
 
 CFGR::ApbHighSpeedPrescaler CFGR::GetApbHighSpeedPrescaler() const
@@ -169,7 +170,7 @@ void CFGR::SetApbHighSpeedPrescaler( ApbHighSpeedPrescaler prescaler )
 	uint32_t mask = static_cast<uint32_t>( ApbHighSpeedPrescaler::Mask );
 	uint32_t value = static_cast<uint32_t>( prescaler );
 
-	m_register.SetRegister( value, mask, CFGR::m_offset_apb_high_speed_pres );
+	m_register.Set( value, mask, CFGR::m_offset_apb_high_speed_pres );
 }
 
 CFGR::ApbLowSpeedPrescaler CFGR::GetApbLowSpeedPrescaler() const
@@ -185,7 +186,7 @@ void CFGR::SetApbLowSpeedPrescaler( ApbLowSpeedPrescaler prescaler )
 	uint32_t mask = static_cast<uint32_t>( ApbLowSpeedPrescaler::Mask );
 	uint32_t value = static_cast<uint32_t>( prescaler );
 
-	m_register.SetRegister( value, mask, CFGR::m_offset_apb_low_speed_pres );
+	m_register.Set( value, mask, CFGR::m_offset_apb_low_speed_pres );
 }
 
 CFGR::AhbPrescaler CFGR::GetAhbPrescaler() const
@@ -201,7 +202,7 @@ void CFGR::SetAhbPrescaler( AhbPrescaler prescaler )
 	uint32_t mask = static_cast<uint32_t>( AhbPrescaler::Mask );
 	uint32_t value = static_cast<uint32_t>( prescaler );
 
-	m_register.SetRegister( value, mask, CFGR::m_offset_ahb_prescaler );
+	m_register.Set( value, mask, CFGR::m_offset_ahb_prescaler );
 }
 
 CFGR::SystemClockSwitch CFGR::GetSystemClockSwitchStatus() const
@@ -225,7 +226,7 @@ void CFGR::SetSystemClockSwitch( SystemClockSwitch clock_switch )
 	uint32_t mask = static_cast<uint32_t>( SystemClockSwitch::Mask );
 	uint32_t value = static_cast<uint32_t>( clock_switch );
 
-	m_register.SetRegister( value, mask, CFGR::m_offset_sw );
+	m_register.Set( value, mask, CFGR::m_offset_sw );
 }
 }
 } /* namespace Stm32 */

@@ -5,27 +5,22 @@
  *      Author: pluyckx
  */
 
-#include "Clock.hpp"
+#include "../RCC/RCC.hpp"
 
 namespace stm32
 {
 
-namespace clock
+namespace rcc
 {
 
-static Clock clock;
+static RCC clock;
 
-Clock::Clock()
+RCC::RCC()
 {
 }
 
-CR *Clock::GetControlRegister()
-{
-	return &m_cr;
-}
 
-
-Clock &Clock::GetClock()
+RCC &RCC::GetClock()
 {
 	return clock;
 }

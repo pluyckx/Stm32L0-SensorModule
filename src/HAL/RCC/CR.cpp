@@ -5,15 +5,15 @@
  *      Author: pluyckx
  */
 
-#include "CR.hpp"
+#include "../RCC/CR.hpp"
 
+#include "../RCC/clock_private.hpp"
 #include "../Register32Bit.hpp"
-#include "clock_private.hpp"
 
 namespace stm32
 {
 
-namespace clock
+namespace rcc
 {
 
 extern clock_t r_clock;
@@ -63,7 +63,7 @@ void CR::Configure( stm32::Status pll_on,
 	    | (static_cast<uint32_t>( hsi_force_on ) << CR::m_offset_hsi_force_on)
 	    | (static_cast<uint32_t>( hsi_on ) << CR::m_offset_hsi_on);
 
-	m_register.SetRegister( value );
+	m_register.Set( value );
 }
 
 bool CR::IsPllReady() const
@@ -77,7 +77,7 @@ void CR::SetPllOn( stm32::Status status )
 {
 	uint32_t value = static_cast<uint32_t>( status );
 
-	m_register.SetRegister( value, 1, CR::m_offset_pll_on );
+	m_register.Set( value, 1, CR::m_offset_pll_on );
 }
 
 bool CR::IsPllOn() const
@@ -92,7 +92,7 @@ void CR::SetRtcPrescaler( RtcPrescaler prescaler )
 	uint32_t value = static_cast<uint32_t>( prescaler );
 	uint32_t mask = static_cast<uint32_t>( RtcPrescaler::Mask );
 
-	m_register.SetRegister( value, mask, m_offset_rtc_prescaler );
+	m_register.Set( value, mask, m_offset_rtc_prescaler );
 }
 
 CR::RtcPrescaler CR::GetRtcPrescaler() const
@@ -107,7 +107,7 @@ void CR::SetCssHse( stm32::Status status )
 {
 	uint32_t value = static_cast<uint32_t>( status );
 
-	m_register.SetRegister( value, 1, CR::m_offset_css_hse_on );
+	m_register.Set( value, 1, CR::m_offset_css_hse_on );
 }
 
 bool CR::IsCssHseOn() const
@@ -121,7 +121,7 @@ void CR::SetHseBypass( stm32::Status status )
 {
 	uint32_t value = static_cast<uint32_t>( status );
 
-	m_register.SetRegister( value, 1, CR::m_offset_hse_bypass );
+	m_register.Set( value, 1, CR::m_offset_hse_bypass );
 }
 
 bool CR::IsHseBypassOn() const
@@ -142,7 +142,7 @@ void CR::SetHseOn( stm32::Status status )
 {
 	uint32_t value = static_cast<uint32_t>( status );
 
-	m_register.SetRegister( value, 1, CR::m_offset_hse_on );
+	m_register.Set( value, 1, CR::m_offset_hse_on );
 }
 
 bool CR::IsHseOn() const
@@ -163,7 +163,7 @@ void CR::SetMsiOn( stm32::Status status )
 {
 	uint32_t value = static_cast<uint32_t>( status );
 
-	m_register.SetRegister( value, 1, CR::m_offset_msi_on );
+	m_register.Set( value, 1, CR::m_offset_msi_on );
 }
 
 bool CR::IsMsiOn() const
@@ -177,7 +177,7 @@ void CR::SetHsiEnabled( stm32::Status status )
 {
 	uint32_t value = static_cast<uint32_t>( status );
 
-	m_register.SetRegister( value, 1, CR::m_offset_hsi_enabled );
+	m_register.Set( value, 1, CR::m_offset_hsi_enabled );
 }
 
 bool CR::IsHsiEnabled() const
@@ -198,7 +198,7 @@ void CR::RequestHsiDivision( stm32::Status status )
 {
 	uint32_t value = static_cast<uint32_t>( status );
 
-	m_register.SetRegister( value, 1, CR::m_offset_hsi_div_enabled );
+	m_register.Set( value, 1, CR::m_offset_hsi_div_enabled );
 }
 
 bool CR::IsHsiDivisionRequested() const
@@ -219,7 +219,7 @@ void CR::ForceHsiOn( stm32::Status status )
 {
 	uint32_t value = static_cast<uint32_t>( status );
 
-	m_register.SetRegister( value, 1, CR::m_offset_hsi_force_on );
+	m_register.Set( value, 1, CR::m_offset_hsi_force_on );
 }
 
 bool CR::IsHsiForcedOn() const
@@ -233,7 +233,7 @@ void CR::SetHsiOn( stm32::Status status )
 {
 	uint32_t value = static_cast<uint32_t>( status );
 
-	m_register.SetRegister( value, 1, CR::m_offset_hsi_on );
+	m_register.Set( value, 1, CR::m_offset_hsi_on );
 }
 
 bool CR::IsHsiOn() const

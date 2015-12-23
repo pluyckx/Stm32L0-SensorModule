@@ -1,12 +1,12 @@
 /*
- * CIFR.h
+ * AHBRSTR.h
  *
  *  Created on: Dec 22, 2015
  *      Author: pluyckx
  */
 
-#ifndef SRC_HAL_CLOCK_CIER_H_
-#define SRC_HAL_CLOCK_CIER_H_
+#ifndef SRC_HAL_CLOCK_AHBRSTR_H_
+#define SRC_HAL_CLOCK_AHBRSTR_H_
 
 #include "stdint.h"
 #include "../Register32Bit.hpp"
@@ -14,27 +14,22 @@
 
 namespace stm32
 {
-namespace clock
+namespace rcc
 {
 
-class CIFR
+class AHBRSTR
 {
 	public:
 		enum class Flags
 		{
-			HseCss = 8u,
-			LseCss = 7u,
-			MsiRdy = 5u,
-			PllRdy = 4u,
-			HseRdy = 3u,
-			HsiRdy = 2u,
-			LseRdy = 1u,
-			LsiRdy = 0u
+			Dma = 0u, MemoryInterface = 8u, Crc = 12u, CryptoModule = 24u
 		};
 
-		CIFR();
+		AHBRSTR();
 
-		bool IsFlagSet( Flags flag ) const;
+		bool Get( Flags flag );
+		void Set( Flags flag );
+		void Clear( Flags flag );
 
 	private:
 		Register32Bit m_register;

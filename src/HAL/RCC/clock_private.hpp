@@ -5,15 +5,15 @@
  *      Author: pluyckx
  */
 
-#ifndef SRC_HAL_CLOCK_CLOCK_PRIVATE_HPP_
-#define SRC_HAL_CLOCK_CLOCK_PRIVATE_HPP_
+#ifndef SRC_HAL_RCC_CLOCK_PRIVATE_HPP_
+#define SRC_HAL_RCC_CLOCK_PRIVATE_HPP_
 
 #include "stdint.h"
 
 namespace stm32
 {
 
-namespace clock
+namespace rcc
 {
 
 typedef struct clock clock_t;
@@ -45,4 +45,4 @@ struct clock
 }
 }
 
-#endif /* SRC_HAL_CLOCK_CLOCK_PRIVATE_HPP_ */
+#endif /* SRC_HAL_RCC_CLOCK_PRIVATE_HPP_ */

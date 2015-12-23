@@ -5,8 +5,8 @@
  *      Author: pluyckx
  */
 
-#ifndef SRC_HAL_CLOCK_CIER_HPP_
-#define SRC_HAL_CLOCK_CIER_HPP_
+#ifndef SRC_HAL_RCC_CIER_HPP_
+#define SRC_HAL_RCC_CIER_HPP_
 
 #include "stdint.h"
 #include "../Register32Bit.hpp"
@@ -14,7 +14,7 @@
 
 namespace stm32
 {
-namespace clock
+namespace rcc
 {
 
 class CIER
@@ -66,4 +66,4 @@ class CIER
 }; /* namespace Clock */
 }; /* namespace Stm32 */
 
-#endif /* SRC_HAL_CLOCK_CIER_HPP_ */
+#endif /* SRC_HAL_RCC_CIER_HPP_ */

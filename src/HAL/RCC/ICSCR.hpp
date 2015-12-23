@@ -5,15 +5,15 @@
  *      Author: pluyckx
  */
 
-#ifndef SRC_HAL_CLOCK_CONTROLREGISTER_HPP_
-#define SRC_HAL_CLOCK_CONTROLREGISTER_HPP_
+#ifndef SRC_HAL_RCC_ICSCR_HPP_
+#define SRC_HAL_RCC_ICSCR_HPP_
 
 #include "stdint.h"
 #include "../Register32Bit.hpp"
 
 namespace stm32
 {
-namespace clock
+namespace rcc
 {
 
 class ICSCR

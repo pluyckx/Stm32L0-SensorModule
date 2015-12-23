@@ -5,8 +5,8 @@
  *      Author: pluyckx
  */
 
-#ifndef SRC_HAL_CLOCK_CR_HPP_
-#define SRC_HAL_CLOCK_CR_HPP_
+#ifndef SRC_HAL_RCC_CR_HPP_
+#define SRC_HAL_RCC_CR_HPP_
 
 #include "stdint.h"
 #include "../Register32Bit.hpp"
@@ -15,7 +15,7 @@
 namespace stm32
 {
 
-namespace clock
+namespace rcc
 {
 
 class CR
@@ -104,4 +104,4 @@ class CR
 
 } /* namespace Stm32 */
 
-#endif /* SRC_HAL_CLOCK_CR_HPP_ */
+#endif /* SRC_HAL_RCC_CR_HPP_ */

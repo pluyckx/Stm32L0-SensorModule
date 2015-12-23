@@ -5,13 +5,14 @@
  *      Author: pluyckx
  */
 
-#include "clock_private.hpp"
+#include "../RCC/CICR.hpp"
+
 #include "../GenericTypes.hpp"
-#include "CICR.hpp"
+#include "../RCC/clock_private.hpp"
 
 namespace stm32
 {
-namespace clock
+namespace rcc
 {
 
 extern clock_t r_clock;

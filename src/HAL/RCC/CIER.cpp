@@ -5,13 +5,13 @@
  *      Author: pluyckx
  */
 
-#include "CIER.hpp"
+#include "../RCC/CIER.hpp"
 
-#include "clock_private.hpp"
+#include "../RCC/clock_private.hpp"
 
 namespace stm32
 {
-namespace clock
+namespace rcc
 {
 
 extern clock_t r_clock;
@@ -47,7 +47,7 @@ void CIER::Configure( stm32::Status lse_css,
 	    | (static_cast<uint32_t>( lse_rdy ) << m_offset_lse_rdy)
 	    | (static_cast<uint32_t>( lsi_rdy ) << m_offset_lsi_rdy);
 
-	m_register.SetRegister( value, m_mask );
+	m_register.Set( value, m_mask );
 }
 
 bool CIER::IsLseCssSet() const
@@ -125,7 +125,7 @@ inline void CIER::SetStatusBit( stm32::Status status, uint32_t offset )
 {
 	uint32_t value = static_cast<uint32_t>( status );
 
-	m_register.SetRegister( value, 0x1u, offset );
+	m_register.Set( value, 0x1u, offset );
 }
 
 }

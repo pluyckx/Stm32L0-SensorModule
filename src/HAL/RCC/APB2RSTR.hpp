@@ -5,8 +5,8 @@
  *      Author: pluyckx
  */
 
-#ifndef SRC_HAL_CLOCK_CIER_H_
-#define SRC_HAL_CLOCK_CIER_H_
+#ifndef SRC_HAL_CLOCK_APB2RSTR_H_
+#define SRC_HAL_CLOCK_APB2RSTR_H_
 
 #include "stdint.h"
 #include "../Register32Bit.hpp"
@@ -14,27 +14,22 @@
 
 namespace stm32
 {
-namespace clock
+namespace rcc
 {
 
-class CICR
+class APB2RSTR
 {
 	public:
 		enum class Flags
 		{
-			HseCss = 8u,
-			LseCss = 7u,
-			MsiRdy = 5u,
-			PllRdy = 4u,
-			HseRdy = 3u,
-			HsiRdy = 2u,
-			LseRdy = 1u,
-			LsiRdy = 0u
+			SysCfg = 0u, Tim21 = 2u, Tim22 = 5u, Adc = 9u, Spi1 = 12u, Usart1 = 14u, Dbg = 22u
 		};
 
-		CICR();
+		APB2RSTR();
 
-		void ClearFlag( Flags flag );
+		bool Get( Flags flag );
+		void Set( Flags flag );
+		void Clear( Flags flag );
 
 	private:
 		Register32Bit m_register;

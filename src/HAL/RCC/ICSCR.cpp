@@ -5,14 +5,15 @@
  *      Author: pluyckx
  */
 
+#include "../RCC/ICSCR.hpp"
+
+#include "../RCC/clock_private.hpp"
 #include "../Register32Bit.hpp"
-#include "clock_private.hpp"
-#include "ICSCR.hpp"
 
 namespace stm32
 {
 
-namespace clock
+namespace rcc
 {
 
 extern clock_t r_clock;
@@ -35,7 +36,7 @@ uint8_t ICSCR::GetMsiTrim() const
 
 void ICSCR::SetMsiTrim( uint8_t value )
 {
-	m_register.SetRegister( value, 0xFF, ICSCR::m_offset_msi_trim );
+	m_register.Set( value, 0xFF, ICSCR::m_offset_msi_trim );
 }
 
 uint8_t ICSCR::GetMsiCal() const
@@ -55,7 +56,7 @@ void ICSCR::SetMsiRange( MsiRange range )
 	uint32_t value = static_cast<uint32_t>( range );
 	uint32_t mask = static_cast<uint32_t>( MsiRange::Mask );
 
-	m_register.SetRegister( value, mask, ICSCR::m_offset_msi_range );
+	m_register.Set( value, mask, ICSCR::m_offset_msi_range );
 }
 
 uint8_t ICSCR::GetHsiTrim() const
@@ -65,7 +66,7 @@ uint8_t ICSCR::GetHsiTrim() const
 
 void ICSCR::SetHsiTrim( uint8_t value )
 {
-	m_register.SetRegister( value, 0x1F, ICSCR::m_offset_msi_trim );
+	m_register.Set( value, 0x1F, ICSCR::m_offset_msi_trim );
 }
 
 uint8_t ICSCR::GetHsiCal() const

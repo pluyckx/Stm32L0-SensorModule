@@ -1,11 +1,11 @@
+#include "../HAL/RCC/RCC.hpp"
 #include "startup.hpp"
 
-#include "../HAL/Clock/Clock.hpp"
 
 int main( void )
 {
 	InitApplication();
-	stm32::clock::Clock clock = stm32::clock::Clock::GetClock();
+	stm32::rcc::RCC clock = stm32::rcc::RCC::GetClock();
 
 	for ( ;; )
 	{

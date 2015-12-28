@@ -5,7 +5,7 @@
  *      Author: pluyckx
  */
 
-#include "Register32Bit.hpp"
+#include "Register.hpp"
 
 namespace stm32
 {

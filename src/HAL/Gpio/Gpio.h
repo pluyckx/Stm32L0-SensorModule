@@ -8,6 +8,8 @@
 #ifndef SRC_HAL_GPIO_GPIO_H_
 #define SRC_HAL_GPIO_GPIO_H_
 
+#include <stdint.h>
+
 namespace stm32
 {
 namespace gpio

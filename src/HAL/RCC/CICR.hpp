@@ -9,44 +9,40 @@
 #define SRC_HAL_CLOCK_CICR_H_
 
 #include "stdint.h"
-#include "../Register32Bit.hpp"
 #include "../GenericTypes.hpp"
+#include "../Register.hpp"
 
 namespace stm32
 {
 namespace rcc
 {
 
-class CICR
+namespace cicr
 {
-	public:
-		enum class Flags
-		{
-			HseCss = 8u,
-			LseCss = 7u,
-			MsiRdy = 5u,
-			PllRdy = 4u,
-			HseRdy = 3u,
-			HsiRdy = 2u,
-			LseRdy = 1u,
-			LsiRdy = 0u
-		};
 
-		CICR();
+uint32_t const register_mask = 0x000001BFu;
 
-		void ClearFlag( Flags flag );
-
-	private:
-		Register32Bit m_register;
-
-		static uint32_t const m_mask;
+enum class BitFields
+{
+	CssHse = 1u << 8u,
+	CssLse = 1u << 7u,
+	MsiRdy = 1u << 5u,
+	PllRdy = 1u << 4u,
+	HseRdy = 1u << 3u,
+	HsiRdy = 1u << 2u,
+	LseRdy = 1u << 1u,
+	LsiRdy = 1u << 0u,
 };
+}
 
-}
-;
-/* namespace Clock */
-}
-;
-/* namespace Stm32 */
+} /* namespace Clock */
+} /* namespace Stm32 */
+
+/* Enable enum class to use as bitfields */
+template<>
+struct enable_bitmask_operators<stm32::rcc::cicr::BitFields>
+{
+		static const bool enable = true;
+};
 
 #endif /* SRC_HAL_CLOCK_CIER_H_ */

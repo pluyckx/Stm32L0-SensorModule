@@ -8,25 +8,16 @@
 #ifndef SRC_HAL_CLOCK_H_
 #define SRC_HAL_CLOCK_H_
 
-#include "../RCC/AHBENR.hpp"
-#include "../RCC/AHBRSTR.hpp"
-#include "../RCC/AHBSMENR.hpp"
-#include "../RCC/APB1ENR.hpp"
-#include "../RCC/APB1RSTR.hpp"
-#include "../RCC/APB1SMENR.hpp"
-#include "../RCC/APB2ENR.hpp"
-#include "../RCC/APB2RSTR.hpp"
-#include "../RCC/APB2SMENR.hpp"
-#include "../RCC/CCIPR.h"
-#include "../RCC/CFGR.hpp"
-#include "../RCC/CICR.hpp"
-#include "../RCC/CIER.hpp"
-#include "../RCC/CIFR.hpp"
-#include "../RCC/CR.hpp"
-#include "../RCC/ICSCR.hpp"
-#include "../RCC/IOPENR.hpp"
-#include "../RCC/IOPRSTR.hpp"
-#include "../RCC/IOPSMENR.hpp"
+#include "CR.hpp"
+#include "ICSCR.hpp"
+#include "CFGR.hpp"
+#include "CICR.hpp"
+#include "CIER.hpp"
+#include "CIFR.hpp"
+#include "../Register.hpp"
+#include "clock_private.hpp"
+
+extern stm32::rcc::clock_t r_clock;
 
 namespace stm32
 {
@@ -39,121 +30,111 @@ class RCC
 	public:
 
 		RCC();
+		/*
+		 AdvancedRegister<uint32_t, cr::FieldMasks> GetAhbEnableRegiser()
+		 {
+		 return AdvancedRegister<uint32_t, cr::FieldMasks>(clock_r.cr, cr::register_mask);
+		 }
 
-		AHBENR *GetAhbEnableRegiser()
+		 AHBRSTR *GetAhbRstRegister()
+		 {
+		 return &m_ahb_reset;
+		 }
+
+		 AHBSMENR *GetAhbStopModeRegister()
+		 {
+		 return &m_ahb_stopmode;
+		 }
+
+		 APB1ENR *GetApb1EnableRegiser()
+		 {
+		 return &m_apb1_enable;
+		 }
+
+		 APB1RSTR *GetApb1RstRegister()
+		 {
+		 return &m_apb1_reset;
+		 }
+
+		 APB1SMENR *GetApb1StopModeRegister()
+		 {
+		 return &m_apb1_stopmode;
+		 }
+
+		 APB2ENR *GetApb2EnableRegiser()
+		 {
+		 return &m_apb2_enable;
+		 }
+
+		 APB2RSTR *GetApb2RstRegister()
+		 {
+		 return &m_apb2_reset;
+		 }
+
+		 APB2SMENR *GetApb2StopModeRegister()
+		 {
+		 return &m_apb2_stopmode;
+		 }
+
+		 CCIPR *GetCcipRegister()
+		 {
+		 return &m_ccipr;
+		 }
+		 */
+		Register<uint32_t, cicr::BitFields, void> GetCicRegister()
 		{
-			return &m_ahb_enable;
+			return Register<uint32_t, cicr::BitFields, void>( r_clock.cicr,
+			                                                  cicr::register_mask );
 		}
 
-		AHBRSTR *GetAhbRstRegister()
+		Register<uint32_t, cier::BitFields, void> GetCieRegister()
 		{
-			return &m_ahb_reset;
+			return Register<uint32_t, cier::BitFields, void>( r_clock.cier,
+			                                                  cier::register_mask );
 		}
 
-		AHBSMENR *GetAhbStopModeRegister()
+		Register<uint32_t, cifr::BitFields, void> GetCifRegister()
 		{
-			return &m_ahb_stopmode;
+			return Register<uint32_t, cifr::BitFields, void>( r_clock.cifr,
+			                                                  cifr::register_mask );
 		}
 
-		APB1ENR *GetApb1EnableRegiser()
+		Register<uint32_t, cr::BitFields, cr::FieldMasks> GetControlRegister()
 		{
-			return &m_apb1_enable;
+			return Register<uint32_t, cr::BitFields, cr::FieldMasks>( r_clock.cr,
+			                                                          cr::register_mask );
 		}
 
-		APB1RSTR *GetApb1RstRegister()
+		Register<uint32_t, void, icscr::FieldMasks> GetIcscRegister()
 		{
-			return &m_apb1_reset;
+			return Register<uint32_t, void, icscr::FieldMasks>( r_clock.icscr,
+			                                                    icscr::register_mask );
 		}
 
-		APB1SMENR *GetApb1StopModeRegister()
+		Register<uint32_t, cfgr::BitFields, cfgr::FieldMasks> GetClockConfigurationRegister()
 		{
-			return &m_apb1_stopmode;
+			return Register<uint32_t, cfgr::BitFields, cfgr::FieldMasks>( r_clock.cfgr,
+			                                                              cfgr::register_mask );
 		}
+		/*
+		 IOPENR *GetIoPortEnableRegiser()
+		 {
+		 return &io_port_enable;
+		 }
 
-		APB2ENR *GetApb2EnableRegiser()
-		{
-			return &m_apb2_enable;
-		}
+		 IOPRSTR *GetIoPortRstRegister()
+		 {
+		 return &io_port_reset;
+		 }
 
-		APB2RSTR *GetApb2RstRegister()
-		{
-			return &m_apb2_reset;
-		}
-
-		APB2SMENR *GetApb2StopModeRegister()
-		{
-			return &m_apb2_stopmode;
-		}
-
-		CCIPR *GetCcipRegister()
-		{
-			return &m_ccipr;
-		}
-
-		CICR *GetCicRegistger()
-		{
-			return &m_cicr;
-		}
-
-		CIER *GetCieRegister()
-		{
-			return &m_cier;
-		}
-
-		CIFR *GetCifRegister()
-		{
-			return &m_cifr;
-		}
-
-		CR *GetControlRegister()
-		{
-			return &m_cr;
-		}
-
-		ICSCR *GetIcscRegister()
-		{
-			return &m_icscr;
-		}
-
-		IOPENR *GetIoPortEnableRegiser()
-		{
-			return &io_port_enable;
-		}
-
-		IOPRSTR *GetIoPortRstRegister()
-		{
-			return &io_port_reset;
-		}
-
-		IOPSMENR *GetIoPortStopModeRegister()
-		{
-			return &io_port_stopmode;
-		}
+		 IOPSMENR *GetIoPortStopModeRegister()
+		 {
+		 return &io_port_stopmode;
+		 }
+		 */
 
 		static RCC &GetClock();
 	private:
-		AHBENR m_ahb_enable;
-		AHBRSTR m_ahb_reset;
-		AHBSMENR m_ahb_stopmode;
-
-		APB1ENR m_apb1_enable;
-		APB1RSTR m_apb1_reset;
-		APB1SMENR m_apb1_stopmode;
-
-		APB2ENR m_apb2_enable;
-		APB2RSTR m_apb2_reset;
-		APB2SMENR m_apb2_stopmode;
-
-		CCIPR m_ccipr;
-		CICR m_cicr;
-		CIER m_cier;
-		CIFR m_cifr;
-		CR m_cr;
-		ICSCR m_icscr;
-
-		IOPENR io_port_enable;
-		IOPRSTR io_port_reset;
-		IOPSMENR io_port_stopmode;
 };
 
 } /* namespace Clock */

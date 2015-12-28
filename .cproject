@@ -53,6 +53,10 @@
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.1308481320" name="Cross ARM C++ Compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler">
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.noexceptions.587269515" name="Do not use exceptions (-fno-exceptions)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.noexceptions" useByScannerDiscovery="true" value="true" valueType="boolean"/>
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.include.paths.1535780989" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/newlib/c++/4.9"/>
+									<listOptionValue builtIn="false" value="/usr/include/newlib/c++/4.9/arm-none-eabi/thumb"/>
+								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.input.63471461" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.input"/>
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.linker.796356738" name="Cross ARM C Linker" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.linker">
@@ -92,6 +96,9 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry excluding="src/HAL/RCC/IOPSMENR.cpp|src/HAL/RCC/IOPRSTR.cpp|src/HAL/RCC/IOPENR.cpp|src/HAL/RCC/ICSCR.cpp|src/HAL/RCC/CSR.cpp|src/HAL/RCC/CIFR.cpp|src/HAL/RCC/CIER.cpp|src/HAL/RCC/CICR.cpp|src/HAL/RCC/CFGR.cpp|src/HAL/RCC/CCIPR.cpp|src/HAL/RCC/APB2SMENR.cpp|src/HAL/RCC/APB2RSTR.cpp|src/HAL/RCC/APB2ENR.cpp|src/HAL/RCC/APB1SMENR.cpp|src/HAL/RCC/APB1RSTR.cpp|src/HAL/RCC/APB1ENR.cpp|src/HAL/RCC/AHBSMENR.cpp|src/HAL/RCC/AHBRSTR.cpp|src/HAL/RCC/AHBENR.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
@@ -146,6 +153,10 @@
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.1582484162" name="Cross ARM C++ Compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler">
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.noexceptions.580862319" name="Do not use exceptions (-fno-exceptions)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.noexceptions" useByScannerDiscovery="true" value="true" valueType="boolean"/>
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.include.paths.743559848" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/newlib/c++/4.9"/>
+									<listOptionValue builtIn="false" value="/usr/include/newlib/c++/4.9/arm-none-eabi/thumb"/>
+								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.input.300139175" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.input"/>
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.linker.1330934832" name="Cross ARM C Linker" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.linker">
@@ -178,6 +189,9 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry excluding="src/HAL/RCC/IOPSMENR.cpp|src/HAL/RCC/IOPRSTR.cpp|src/HAL/RCC/IOPENR.cpp|src/HAL/RCC/ICSCR.cpp|src/HAL/RCC/CSR.cpp|src/HAL/RCC/CIFR.cpp|src/HAL/RCC/CIER.cpp|src/HAL/RCC/CICR.cpp|src/HAL/RCC/CFGR.cpp|src/HAL/RCC/CCIPR.cpp|src/HAL/RCC/APB2SMENR.cpp|src/HAL/RCC/APB2RSTR.cpp|src/HAL/RCC/APB2ENR.cpp|src/HAL/RCC/APB1SMENR.cpp|src/HAL/RCC/APB1RSTR.cpp|src/HAL/RCC/APB1ENR.cpp|src/HAL/RCC/AHBSMENR.cpp|src/HAL/RCC/AHBRSTR.cpp|src/HAL/RCC/AHBENR.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>

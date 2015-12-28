@@ -9,8 +9,8 @@
 #define SRC_HAL_CLOCK_IOPRSTR_H_
 
 #include "stdint.h"
-#include "../Register32Bit.hpp"
 #include "../GenericTypes.hpp"
+#include "../Register.hpp"
 
 namespace stm32
 {

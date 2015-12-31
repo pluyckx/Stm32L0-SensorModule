@@ -9,7 +9,7 @@
 #define SRC_HAL_RCC_CIER_HPP_
 
 #include "stdint.h"
-#include "../GenericTypes.hpp"
+#include "../TypeSafeBitmasks.hpp"
 
 namespace stm32
 {

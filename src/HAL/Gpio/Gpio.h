@@ -9,6 +9,7 @@
 #define SRC_HAL_GPIO_GPIO_H_
 
 #include <stdint.h>
+#include "../TypeSafeBitmasks.hpp"
 
 namespace stm32
 {
@@ -30,21 +31,91 @@ struct gpio_r
 		uint32_t bit_reset; /* 0x28 */
 };
 
+enum class Pin
+{
+	Pin0 = 1u << 0u,
+	Pin1 = 1u << 1u,
+	Pin2 = 1u << 2u,
+	Pin3 = 1u << 3u,
+	Pin4 = 1u << 4u,
+	Pin5 = 1u << 5u,
+	Pin6 = 1u << 6u,
+	Pin7 = 1u << 7u,
+	Pin8 = 1u << 8u,
+	Pin9 = 1u << 9u,
+	Pin10 = 1u << 10u,
+	Pin11 = 1u << 11u,
+	Pin12 = 1u << 12u,
+	Pin13 = 1u << 13u,
+	Pin14 = 1u << 14u,
+	Pin15 = 1u << 15u,
+
+	All = 0x0000FFFFu
+};
+
+enum class Mode
+{
+	Input = 0, Output, Alternative, Analog
+};
+
+enum class OutputType
+{
+	PushPull = 0x0, OpenDrain = 0x1
+};
+
+enum class OutputSpeed
+{
+	Slow = 0, Medium, Fast, Fastest
+};
+
+enum class PullUpDown
+{
+	None = 0, PullUp, PullDown
+};
+
+enum class Alternative
+{
+	Alt0 = 0, Alt1, Alt2, Alt3, Alt4, Alt5, Alt6, Alt7
+};
+
+enum class Port
+{
+	PortA = 0, PortB, PortC, PortD, PortE, Count
+};
+
 class Gpio
 {
 	public:
-		enum class OutputType
-		{
-			Input = 0u, Output = 1u, Alternate = 2u, Analog = 3u
-		};
 
-		Gpio();
+		static Gpio *GetGpio( Port port );
+
+		void ConfigureInput( Pin pins, PullUpDown pullup_down );
+		void ConfigureOutput( Pin pins,
+		                      OutputType type,
+		                      OutputSpeed speed,
+		                      PullUpDown pullup_down );
+
+		uint32_t ReadInput( Pin pins );
+		uint32_t ReadOutput( Pin pins );
+		bool areInputsSet( Pin pins );
+		bool areOutputsSet( Pin pins );
+		void WriteOutput( Pin pins, bool value );
 
 	private:
+		Gpio( gpio_r * const gpio );
 
+		gpio_r * const m_gpio;
+
+		static Gpio m_gpios[static_cast<uint32_t>( Port::Count )];
 };
 
 } /* namespace gpio */
 } /* namespace stm32 */
+
+template<>
+struct enable_bitmask_operators<stm32::gpio::Pin>
+{
+		static bool const enable = true;
+};
 
 #endif /* SRC_HAL_GPIO_GPIO_H_ */

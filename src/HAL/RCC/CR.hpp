@@ -9,9 +9,6 @@
 #define SRC_HAL_RCC_CR_HPP_
 
 #include "stdint.h"
-#include "../GenericTypes.hpp"
-#include "../Register.hpp"
-
 #include "../TypeSafeBitmasks.hpp"
 
 namespace stm32
@@ -25,7 +22,7 @@ namespace cr
 
 uint32_t const register_mask = 0x033F033Fu;
 
-enum RtcPrescaler
+enum class RtcPrescaler
 {
 	Div2 = 0u, Div4 = 1u, Div8 = 2u, Div16 = 3u, Mask = 0x3u
 };
@@ -48,7 +45,7 @@ enum class BitFields
 		PllReady = (1u << 25u)
 };
 
-enum FieldMasks
+enum class FieldMasks
 {
 		RtcPrescaler = (3u << 20u),
 };

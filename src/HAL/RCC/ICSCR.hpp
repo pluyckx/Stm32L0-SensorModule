@@ -9,8 +9,7 @@
 #define SRC_HAL_RCC_ICSCR_HPP_
 
 #include "stdint.h"
-
-#include "../Register.hpp"
+#include "../TypeSafeBitmasks.hpp"
 
 namespace stm32
 {

@@ -9,39 +9,37 @@
 #define SRC_HAL_CLOCK_APB2RSTR_H_
 
 #include "stdint.h"
-#include "../GenericTypes.hpp"
-#include "../Register.hpp"
+#include "../TypeSafeBitmasks.hpp"
 
 namespace stm32
 {
 namespace rcc
 {
 
-class APB2RSTR
+namespace apb2rstr
 {
-	public:
-		enum class Flags
-		{
-			SysCfg = 0u, Tim21 = 2u, Tim22 = 5u, Adc = 9u, Spi1 = 12u, Usart1 = 14u, Dbg = 22u
-		};
 
-		APB2RSTR();
+uint32_t const register_mask = 0x004052A5u;
 
-		bool Get( Flags flag );
-		void Set( Flags flag );
-		void Clear( Flags flag );
-
-	private:
-		Register32Bit m_register;
-
-		static uint32_t const m_mask;
+enum class BitFields
+{
+	SysCfg = 0u,
+	Tim21 = 2u,
+	Tim22 = 5u,
+	Adc = 9u,
+	Spi1 = 12u,
+	Usart1 = 14u,
+	Dbg = 22u
 };
+}
 
-}
-;
-/* namespace Clock */
-}
-;
-/* namespace Stm32 */
+} /* namespace Clock */
+} /* namespace Stm32 */
+
+template<>
+struct enable_bitmask_operators<stm32::rcc::apb2rstr::BitFields>
+{
+		static bool const enable = true;
+};
 
 #endif /* SRC_HAL_CLOCK_CIER_H_ */

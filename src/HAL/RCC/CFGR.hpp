@@ -8,8 +8,8 @@
 #ifndef SRC_HAL_RCC_CFGR_HPP_
 #define SRC_HAL_RCC_CFGR_HPP_
 
-#include "../TypeSafeBitmasks.hpp"
 #include "stdint.h"
+#include "../TypeSafeBitmasks.hpp"
 
 namespace stm32
 {

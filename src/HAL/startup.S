@@ -1,4 +1,4 @@
-.section .nvic
+.section .isr_vector
 	.word __cstack               /* 0x000 */
 	.word NVIC_ResetHandler      /* 0x004 */
 	.word NVIC_NMIHandler        /* 0x008 */

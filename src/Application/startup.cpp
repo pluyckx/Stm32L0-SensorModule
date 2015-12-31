@@ -7,19 +7,24 @@
 
 #include <stdint.h>
 
-extern uint32_t _datasrc;
-extern uint32_t _data_start;
-extern uint32_t _data_end;
-extern uint32_t _bss_start;
-extern uint32_t _bss_end;
+extern uint32_t _data_flash;
+extern uint32_t __data_start__;
+extern uint32_t __data_end__;
+extern uint32_t __bss_start__;
+extern uint32_t __bss_end__;
+
+extern "C"
+{
+extern void __libc_init_array(void);
+}
 
 void InitApplication( void )
 {
-	char *datasrc = reinterpret_cast<char*>( &_datasrc );
-	char *data_dst = reinterpret_cast<char*>( &_data_start );
-	char *data_end = reinterpret_cast<char*>( &_data_end );
-	char *bss_dst = reinterpret_cast<char*>( &_bss_start );
-	char *bss_end = reinterpret_cast<char*>( &_bss_end );
+	char *datasrc = reinterpret_cast<char*>( &_data_flash );
+	char *data_dst = reinterpret_cast<char*>( &__data_start__ );
+	char *data_end = reinterpret_cast<char*>( &__data_end__ );
+	char *bss_dst = reinterpret_cast<char*>( &__bss_start__ );
+	char *bss_end = reinterpret_cast<char*>( &__bss_end__ );
 
 	while ( (data_dst + 4) <= data_end )
 	{
@@ -47,4 +52,6 @@ void InitApplication( void )
 		*reinterpret_cast<uint8_t*>( bss_dst ) = 0;
 		bss_dst++;
 	}
+
+	__libc_init_array();
 }

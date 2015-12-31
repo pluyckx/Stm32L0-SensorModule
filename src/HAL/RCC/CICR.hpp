@@ -9,8 +9,7 @@
 #define SRC_HAL_CLOCK_CICR_H_
 
 #include "stdint.h"
-#include "../GenericTypes.hpp"
-#include "../Register.hpp"
+#include "../TypeSafeBitmasks.hpp"
 
 namespace stm32
 {

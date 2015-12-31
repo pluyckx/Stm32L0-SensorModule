@@ -9,42 +9,76 @@
 #define SRC_HAL_RCC_CCIPR_H_
 
 #include "stdint.h"
-#include "../GenericTypes.hpp"
-#include "../Register.hpp"
+#include "../TypeSafeBitmasks.hpp"
 
 namespace stm32
 {
 namespace rcc
 {
 
-class CCIPR
+namespace ccipr
 {
-	public:
-		enum class Clock
-		{
-			Apb = 0u, Lsi_SystemClock = 1u, Hsi = 2u, Lse_Reserved = 3u
-		};
 
-		enum class Peripheral
-		{
-			Usart1 = 0u,
-			Usart2 = 2u,
-			LpUart1 = 10u,
-			I2c1 = 12u,
-			I2c3 = 16u,
-			LpTimer1 = 18u
-		};
+uint32_t const register_mask = 0x000F3C0Fu;
 
-		CCIPR();
+uint32_t const offset_lptimer1 = 18u;
+uint32_t const offset_i2c3 = 16u;
+uint32_t const offset_i2c1 = 12u;
+uint32_t const offset_lpuart1 = 10u;
+uint32_t const offset_usart2 = 2u;
+uint32_t const offset_usart1 = 0u;
 
-		void SetClock( Peripheral peripheral, Clock clock );
-		Clock GetClock( Peripheral peripheral );
-
-	private:
-		Register32Bit m_register;
-
-		static uint32_t const m_mask;
+enum class ClockLpTimer1
+{
+	Apb = 0u << offset_lptimer1, Lsi = 1u << offset_lptimer1, Hsi = 2u
+	    << offset_lptimer1,
+	Lse = 3u << offset_lptimer1
 };
+
+enum class ClockI2c3
+{
+	Apb = 0u << offset_i2c3, SystemClock = 1u << offset_i2c3, Hsi = 2u
+	    << offset_i2c3
+};
+
+enum class ClockI2c1
+{
+	Apb = 0u << offset_i2c1, SystemClock = 1u << offset_i2c1, Hsi = 2u
+	    << offset_i2c1
+};
+
+enum class ClockLpUart1
+{
+	Apb = 0u << offset_lpuart1, SystemClock = 1u << offset_lpuart1, Hsi = 2u
+	    << offset_lpuart1,
+	Lse = 3u << offset_lpuart1
+};
+
+enum class ClockUsart2
+{
+	Apb = 0u << offset_usart2, SystemClock = 1u << offset_usart2, Hsi = 2u
+	    << offset_usart2,
+	Lse = 3u << offset_usart2
+};
+
+enum class ClockUsart1
+{
+	Apb = 0u << offset_usart1, SystemClock = 1u << offset_usart1, Hsi = 2u
+	    << offset_usart1,
+	Lse = 3u << offset_usart1
+};
+
+enum class FieldMasks
+{
+	LpTimer1 = 0x3u << offset_lptimer1,
+	I2c3 = 0x3u << offset_i2c3,
+	I1c1 = 0x3u << offset_i2c1,
+	LpUart1 = 0x3u << offset_lpuart1,
+	Usart2 = 0x3u << offset_usart2,
+	Usart1 = 0x3u << offset_usart1
+};
+
+}
 
 } /* namespace Clock */
 } /* namespace Stm32 */

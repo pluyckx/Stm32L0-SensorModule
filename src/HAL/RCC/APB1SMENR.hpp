@@ -9,53 +9,46 @@
 #define SRC_HAL_CLOCK_APB1SMENR_H_
 
 #include "stdint.h"
-#include "../GenericTypes.hpp"
-#include "../Register.hpp"
+#include "../TypeSafeBitmasks.hpp"
 
 namespace stm32
 {
 namespace rcc
 {
 
-class APB1SMENR
+namespace apb1smenr
 {
-	public:
-		enum class Flags
-		{
-			Tim2 = 0u,
-			Tim3 = 1u,
-			Tim6 = 4u,
-			Tim7 = 5u,
-			WindowWatchdog = 11u,
-			spi2 = 14u,
-			Usart2 = 17u,
-			LpUart1 = 18u,
-			Usart4 = 19u,
-			Usart5 = 20u,
-			I2c1 = 21u,
-			I2c2 = 22u,
-			PowerInterface = 28u,
-			I2c3 = 30u,
-			LpTim1 = 31u
-		};
 
-		APB1SMENR();
+uint32_t const register_mask = 0xD87E4833u;
 
-		bool Get( Flags flag );
-		void Set( Flags flag );
-		void Clear( Flags flag );
-
-	private:
-		Register32Bit m_register;
-
-		static uint32_t const m_mask;
+enum class BitFields
+{
+	Tim2 = 0u,
+	Tim3 = 1u,
+	Tim6 = 4u,
+	Tim7 = 5u,
+	WindowWatchdog = 11u,
+	spi2 = 14u,
+	Usart2 = 17u,
+	LpUart1 = 18u,
+	Usart4 = 19u,
+	Usart5 = 20u,
+	I2c1 = 21u,
+	I2c2 = 22u,
+	crs = 27u,
+	PowerInterface = 28u,
+	I2c3 = 30u,
+	LpTim1 = 31u
 };
+}
 
-}
-;
-/* namespace Clock */
-}
-;
-/* namespace Stm32 */
+} /* namespace Clock */
+} /* namespace Stm32 */
+
+template<>
+struct enable_bitmask_operators<stm32::rcc::apb1smenr::BitFields>
+{
+		static bool const enable = true;
+};
 
 #endif /* SRC_HAL_CLOCK_CIER_H_ */

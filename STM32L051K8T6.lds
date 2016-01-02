@@ -22,18 +22,11 @@ SECTIONS
 		*(.text*)
 		*(.rodata)
 		*(.rodata*)
-	} > flash
-	
-	.init :
-	{
-		KEEP(*.init);
-		KEEP(*.init*);
-	} > flash
-	
-	.fini :
-	{
-		KEEP(*.fini);
-		KEEP(*.fini*);
+		
+        _ctors_begin_ = .;
+        KEEP(*(SORT(.init_array.*)));
+        KEEP(*(.init_array*));
+        _ctors_end_ = .;
 	} > flash
 	
 	/*
@@ -47,13 +40,7 @@ SECTIONS
         KEEP(*(.preinit_array*));
         PROVIDE_HIDDEN(__preinit_array_end = .);
     } >flash
-    .init_array :
-    {
-        PROVIDE_HIDDEN(__init_array_start = .);
-        KEEP(*(SORT(.init_array.*)));
-        KEEP(*(.init_array*));
-        PROVIDE_HIDDEN(__init_array_end = .);
-    } >flash
+    
     .fini_array :
     {
         PROVIDE_HIDDEN(__fini_array_start = .);

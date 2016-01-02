@@ -9,15 +9,20 @@
 
 #include "startup.hpp"
 
+typedef void (*ctor)( void );
+
 extern uint32_t _data_flash;
 extern uint32_t __data_start__;
 extern uint32_t __data_end__;
 extern uint32_t __bss_start__;
 extern uint32_t __bss_end__;
 
+extern ctor _ctors_begin_;
+extern ctor _ctors_end_;
+
 extern "C"
 {
-extern void __libc_init_array(void);
+extern void __libc_init_array( void );
 }
 
 void InitApplication( void )
@@ -55,5 +60,19 @@ void InitApplication( void )
 		bss_dst++;
 	}
 
-	__libc_init_array();
+
+	/* Iterate static constructors */
+	/* Are we also calling functions for global vars like:
+	 * uint32_t global_var = func();
+	 */
+	ctor *current = &_ctors_begin_;
+
+	while ( reinterpret_cast<uint32_t>( current )
+	    < reinterpret_cast<uint32_t>( &_ctors_end_ ) )
+	{
+		(*current)();
+		current = reinterpret_cast<ctor*>( reinterpret_cast<uint32_t>( current )
+		    + sizeof(ctor) );
+	}
+
 }

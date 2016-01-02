@@ -14,7 +14,7 @@ namespace hal
 
 extern "C"
 {
-systick_r r_systick;
+extern systick_r r_systick;
 }
 
 uint32_t const csr_mask = 0x00010007u;

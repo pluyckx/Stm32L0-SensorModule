@@ -191,6 +191,30 @@ class Register<RegType, BitFields, void>
 		volatile RegType *m_register;
 };
 
+/* No FieldMask and bitfields available */
+template<typename RegType>
+class Register<RegType, void, void>
+{
+	public:
+		inline Register( RegType &reg, RegType mask );
+
+		inline void Set( RegType value );
+
+		inline RegType GetMask();
+
+		inline RegType Read() const;
+
+		friend void set<RegType, void, void>( Register<RegType, void, void> &,
+		                                      RegType,
+		                                      RegType );
+		friend RegType read<RegType, void, void>( Register<RegType, void, void> const &,
+		                                          RegType );
+	private:
+
+		volatile RegType *m_register;
+		RegType const m_mask;
+};
+
 /* Implementation for primary template */
 template<typename RegType, typename BitFields, typename FieldMask>
 Register<RegType, BitFields, FieldMask>::Register( RegType &reg, RegType mask )
@@ -353,6 +377,33 @@ bool Register<RegType, BitFields, void>::AreBitsCleared( BitFields fields ) cons
 	return AreBitsCleared( fields );
 }
 
+/* Implementation of register without fieldmasks and bitfields */
+
+template<typename RegType>
+Register<RegType, void, void>::Register( RegType &reg, RegType mask )
+		: m_register( &reg ), m_mask( mask )
+{
+
+}
+
+template<typename RegType>
+void Register<RegType, void, void>::Set( RegType value )
+{
+	set( *this, value );
+}
+
+template<typename RegType>
+RegType Register<RegType, void, void>::GetMask()
+{
+	return this->m_mask;
+}
+
+template<typename RegType>
+RegType Register<RegType, void, void>::Read() const
+{
+	return read( *this );
+}
+
 /* Implement the helper functions */
 
 template<typename RegType, typename BitFields, typename FieldMask>
@@ -374,7 +425,10 @@ inline void clearBits( Register<RegType, BitFields, FieldMask> &reg,
 template<typename RegType, typename BitFields, typename FieldMask>
 inline void set( Register<RegType, BitFields, FieldMask> &reg, RegType value )
 {
-	set( reg, value, reg.m_mask );
+	RegType all = 0u;
+	all = ~all;
+
+	set( reg, value, all );
 }
 
 template<typename RegType, typename BitFields, typename FieldMask>

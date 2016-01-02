@@ -38,12 +38,12 @@
 #include "../Register.hpp"
 #include "clock_private.hpp"
 
-extern stm32::rcc::clock_t r_clock;
+extern stm32::hal::clock_t r_clock;
 
 namespace stm32
 {
 
-namespace rcc
+namespace hal
 {
 
 class RCC

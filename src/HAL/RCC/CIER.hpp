@@ -13,7 +13,7 @@
 
 namespace stm32
 {
-namespace rcc
+namespace hal
 {
 
 namespace cier
@@ -38,7 +38,7 @@ enum class BitFields
 
 /* Enable enum class to use as bitfields */
 template<>
-struct enable_bitmask_operators<stm32::rcc::cier::BitFields>
+struct enable_bitmask_operators<stm32::hal::cier::BitFields>
 {
 		static const bool enable = true;
 };

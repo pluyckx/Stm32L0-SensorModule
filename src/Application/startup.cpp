@@ -7,6 +7,8 @@
 
 #include <stdint.h>
 
+#include "startup.hpp"
+
 extern uint32_t _data_flash;
 extern uint32_t __data_start__;
 extern uint32_t __data_end__;

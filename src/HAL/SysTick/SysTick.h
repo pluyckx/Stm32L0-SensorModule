@@ -15,9 +15,6 @@ namespace stm32
 {
 namespace hal
 {
-namespace systick
-{
-
 uint32_t const reload_value_max = 0x00FFFFFFu;
 
 struct systick_r
@@ -28,17 +25,17 @@ struct systick_r
 		uint32_t calib;
 };
 
-enum class ControlStatusBits
-{
-	CountFlag = 1u << 16,
-	ProcessorClock = 1u << 2u,
-	InterruptEnabled = 1u << 1u,
-	Enable = 1u << 0u
-};
-
 class SysTick
 {
 	public:
+
+		enum class ControlStatusBits
+		{
+			CountFlag = 1u << 16,
+			ProcessorClock = 1u << 2u,
+			InterruptEnabled = 1u << 1u,
+			Enable = 1u << 0u
+		};
 
 		static SysTick &GetSysTick();
 
@@ -46,6 +43,7 @@ class SysTick
 		void EnableSysTick();
 		void DisableSysTick();
 		bool HasCountedDown();
+		void ClearCounter();
 
 		bool SetReloadValue( uint32_t value );
 
@@ -58,12 +56,11 @@ class SysTick
 		static SysTick m_systick;
 };
 
-} /* namespace systick */
 } /* namespace hal */
 } /* namespace stm32 */
 
 template<>
-struct enable_bitmask_operators<stm32::hal::systick::ControlStatusBits>
+struct enable_bitmask_operators<stm32::hal::SysTick::ControlStatusBits>
 {
 		static bool const enable = true;
 };

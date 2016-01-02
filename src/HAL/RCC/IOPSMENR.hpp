@@ -13,7 +13,7 @@
 
 namespace stm32
 {
-namespace rcc
+namespace hal
 {
 
 namespace iopsmenr
@@ -35,7 +35,7 @@ enum class BitFields
 } /* namespace Clock */
 } /* namespace Stm32 */
 template<>
-struct enable_bitmask_operators<stm32::rcc::iopsmenr::BitFields>
+struct enable_bitmask_operators<stm32::hal::iopsmenr::BitFields>
 {
 		static bool const enable = true;
 };

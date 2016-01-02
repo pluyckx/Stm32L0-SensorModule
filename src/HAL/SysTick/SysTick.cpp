@@ -7,16 +7,18 @@
 
 #include "SysTick.h"
 
-extern stm32::hal::systick::systick_r r_systick;
-
 namespace stm32
 {
 namespace hal
 {
-namespace systick
+
+extern "C"
 {
+systick_r r_systick;
+}
 
 uint32_t const csr_mask = 0x00010007u;
+uint32_t const cvr_mask = 0x00FFFFFFu;
 
 SysTick SysTick::m_systick;
 
@@ -54,6 +56,12 @@ bool SysTick::HasCountedDown()
 	return reg.AreBitsSet( ControlStatusBits::CountFlag );
 }
 
+void SysTick::ClearCounter()
+{
+	Register<uint32_t, void, void> reg( r_systick.cvr, cvr_mask );
+	reg.Set( 0u );
+}
+
 bool SysTick::SetReloadValue( uint32_t value )
 {
 	if ( value < reload_value_max )
@@ -72,6 +80,5 @@ uint32_t SysTick::GetCurrentValue() const
 	return r_systick.cvr;
 }
 
-} /* namespace systick */
 } /* namespace hal */
 } /* namespace stm32 */

@@ -7,15 +7,15 @@
 
 #include "Gpio.h"
 
-extern stm32::gpio::gpio_r r_gpioa;
-extern stm32::gpio::gpio_r r_gpiob;
-extern stm32::gpio::gpio_r r_gpioc;
-extern stm32::gpio::gpio_r r_gpiod;
-extern stm32::gpio::gpio_r r_gpioe;
+extern stm32::hal::gpio_r r_gpioa;
+extern stm32::hal::gpio_r r_gpiob;
+extern stm32::hal::gpio_r r_gpioc;
+extern stm32::hal::gpio_r r_gpiod;
+extern stm32::hal::gpio_r r_gpioe;
 
 namespace stm32
 {
-namespace gpio
+namespace hal
 {
 
 static uint32_t const s_mode_mask = 0x3u;

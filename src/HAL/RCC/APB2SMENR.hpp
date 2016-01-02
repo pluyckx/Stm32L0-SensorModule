@@ -13,7 +13,7 @@
 
 namespace stm32
 {
-namespace rcc
+namespace hal
 {
 
 namespace apb2smenr
@@ -36,7 +36,7 @@ enum class BitFields
 } /* namespace Stm32 */
 
 template<>
-struct enable_bitmask_operators<stm32::rcc::apb2smenr::BitFields>
+struct enable_bitmask_operators<stm32::hal::apb2smenr::BitFields>
 {
 		static bool const enable = true;
 };

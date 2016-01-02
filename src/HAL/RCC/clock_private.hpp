@@ -13,7 +13,7 @@
 namespace stm32
 {
 
-namespace rcc
+namespace hal
 {
 
 typedef struct clock clock_t;

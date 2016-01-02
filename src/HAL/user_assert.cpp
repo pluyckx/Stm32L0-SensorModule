@@ -5,7 +5,7 @@
  *      Author: pluyckx
  */
 
-#include "assert.h"
+#include "user_assert.hpp"
 
 void assert_handler()
 {

@@ -10,7 +10,7 @@
 namespace stm32
 {
 
-namespace rcc
+namespace hal
 {
 
 static RCC clock;

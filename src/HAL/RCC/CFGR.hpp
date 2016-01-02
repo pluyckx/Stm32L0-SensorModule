@@ -13,7 +13,7 @@
 
 namespace stm32
 {
-namespace rcc
+namespace hal
 {
 
 namespace cfgr
@@ -123,7 +123,7 @@ enum class FieldMasks
 
 /* Enable enum class to use as bitfields */
 template<>
-struct enable_bitmask_operators<stm32::rcc::cfgr::BitFields>
+struct enable_bitmask_operators<stm32::hal::cfgr::BitFields>
 {
 		static const bool enable = true;
 };

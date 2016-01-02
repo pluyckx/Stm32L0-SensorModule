@@ -30,8 +30,7 @@ bool SystemTime::Configure( uint32_t cpu_freq )
 {
 	bool ret = false;
 
-	stm32::hal::systick::SysTick systick =
-	    stm32::hal::systick::SysTick::GetSysTick();
+	stm32::hal::SysTick systick = stm32::hal::SysTick::GetSysTick();
 
 	uint32_t reload_value = cpu_freq / 1000;
 
@@ -39,8 +38,8 @@ bool SystemTime::Configure( uint32_t cpu_freq )
 
 	if ( ret )
 	{
-		systick.ConfigureSysTick( stm32::hal::systick::ControlStatusBits::InterruptEnabled
-		    | stm32::hal::systick::ControlStatusBits::ProcessorClock );
+		systick.ConfigureSysTick( stm32::hal::SysTick::ControlStatusBits::InterruptEnabled
+		    | stm32::hal::SysTick::ControlStatusBits::ProcessorClock );
 	}
 
 	return ret;
@@ -48,9 +47,9 @@ bool SystemTime::Configure( uint32_t cpu_freq )
 
 void SystemTime::Enable()
 {
-	stm32::hal::systick::SysTick systick =
-	    stm32::hal::systick::SysTick::GetSysTick();
+	stm32::hal::SysTick systick = stm32::hal::SysTick::GetSysTick();
 
+	systick.ClearCounter();
 	systick.EnableSysTick();
 }
 
@@ -66,7 +65,7 @@ extern "C"
 {
 void NVIC_SysTickHandler()
 {
-	if ( stm32::hal::systick::SysTick::GetSysTick().HasCountedDown() )
+	if ( stm32::hal::SysTick::GetSysTick().HasCountedDown() )
 	{
 		stm32::drivers::SystemTime::GetSystemTime().m_time += 1;
 	}

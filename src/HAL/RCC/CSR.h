@@ -13,7 +13,7 @@
 
 namespace stm32
 {
-namespace rcc
+namespace hal
 {
 
 namespace csr
@@ -73,7 +73,7 @@ enum class FieldMasks
 } /* namespace Stm32 */
 
 template<>
-struct enable_bitmask_operators<stm32::rcc::csr::BitFields>
+struct enable_bitmask_operators<stm32::hal::csr::BitFields>
 {
 		static bool const enable = true;
 };

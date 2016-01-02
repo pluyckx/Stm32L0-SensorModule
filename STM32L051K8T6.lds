@@ -110,7 +110,7 @@ SECTIONS
 	
 	r_clock =  0x40021000;
 	
-	systick =  0xE000E010;
-	nvic =     0xE000E100;
-	dbgmcu =   0x40015800;
+	r_systick =  0xE000E010;
+	r_nvic =     0xE000E100;
+	r_dbgmcu =   0x40015800;
 }

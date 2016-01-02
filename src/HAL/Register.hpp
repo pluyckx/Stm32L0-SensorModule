@@ -42,26 +42,26 @@ inline void set( Register<RegType, BitFields, FieldMask> &reg,
                  RegType mask );
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline RegType read( Register<RegType, BitFields, FieldMask> &reg );
+inline RegType read( Register<RegType, BitFields, FieldMask> const &reg );
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline RegType read( Register<RegType, BitFields, FieldMask> &reg,
+inline RegType read( Register<RegType, BitFields, FieldMask> const &reg,
                      FieldMask mask );
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline RegType read( Register<RegType, BitFields, FieldMask> &reg,
+inline RegType read( Register<RegType, BitFields, FieldMask> const &reg,
                      RegType mask );
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline BitFields readBits( Register<RegType, BitFields, FieldMask> &reg,
+inline BitFields readBits( Register<RegType, BitFields, FieldMask> const &reg,
                            BitFields bits );
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline bool areBitsSet( Register<RegType, BitFields, FieldMask> &reg,
+inline bool areBitsSet( Register<RegType, BitFields, FieldMask> const &reg,
                         BitFields bits );
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline bool areBitsCleared( Register<RegType, BitFields, FieldMask> &reg,
+inline bool areBitsCleared( Register<RegType, BitFields, FieldMask> const &reg,
                             BitFields bits );
 
 /* Implement the class in the header, this way it is optimized out when
@@ -99,19 +99,19 @@ class Register
 		                                                RegType,
 		                                                RegType );
 		friend RegType read<RegType, BitFields, FieldMask>( Register<RegType,
-		                                                        BitFields, FieldMask> &,
+		                                                        BitFields, FieldMask> const &,
 		                                                    RegType );
 		friend BitFields readBits<RegType, BitFields, FieldMask>( Register<RegType,
 		                                                              BitFields,
-		                                                              FieldMask> &,
+		                                                              FieldMask> const &,
 		                                                          BitFields );
 		friend bool areBitsSet<RegType, BitFields, FieldMask>( Register<RegType,
 		                                                           BitFields,
-		                                                           FieldMask> &,
+		                                                           FieldMask> const &,
 		                                                       BitFields );
 		friend bool areBitsCleared<RegType, BitFields, FieldMask>( Register<RegType,
 		                                                               BitFields,
-		                                                               FieldMask> &,
+		                                                               FieldMask> const &,
 		                                                           BitFields );
 	private:
 		RegType const m_mask;
@@ -137,7 +137,7 @@ class Register<RegType, void, FieldMask>
 		                                           RegType,
 		                                           RegType );
 		friend RegType read<RegType, void, FieldMask>( Register<RegType, void,
-		                                                   FieldMask> &,
+		                                                   FieldMask> const &,
 		                                               RegType );
 
 	private:
@@ -174,16 +174,16 @@ class Register<RegType, BitFields, void>
 		                                           RegType,
 		                                           RegType );
 		friend RegType read<RegType, BitFields, void>( Register<RegType, BitFields,
-		                                                   void> &,
+		                                                   void> const &,
 		                                               RegType );
 		friend BitFields readBits<RegType, BitFields, void>( Register<RegType,
-		                                                         BitFields, void> &,
+		                                                         BitFields, void> const &,
 		                                                     BitFields );
 		friend bool areBitsSet<RegType, BitFields, void>( Register<RegType,
-		                                                      BitFields, void> &,
+		                                                      BitFields, void> const &,
 		                                                  BitFields );
 		friend bool areBitsCleared<RegType, BitFields, void>( Register<RegType,
-		                                                          BitFields, void> &,
+		                                                          BitFields, void> const &,
 		                                                      BitFields );
 	private:
 
@@ -400,20 +400,20 @@ inline void set( Register<RegType, BitFields, FieldMask> &reg,
 }
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline RegType read( Register<RegType, BitFields, FieldMask> &reg )
+inline RegType read( Register<RegType, BitFields, FieldMask> const &reg )
 {
 	return read( reg, reg.m_mask );
 }
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline RegType read( Register<RegType, BitFields, FieldMask> &reg,
+inline RegType read( Register<RegType, BitFields, FieldMask> const &reg,
                      FieldMask mask )
 {
 	return read( reg, static_cast<RegType>( mask ) );
 }
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline RegType read( Register<RegType, BitFields, FieldMask> &reg,
+inline RegType read( Register<RegType, BitFields, FieldMask> const &reg,
                      RegType mask )
 {
 	mask &= reg.m_mask;
@@ -422,7 +422,7 @@ inline RegType read( Register<RegType, BitFields, FieldMask> &reg,
 }
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline BitFields readBits( Register<RegType, BitFields, FieldMask> &reg,
+inline BitFields readBits( Register<RegType, BitFields, FieldMask> const &reg,
                            BitFields bits )
 {
 	RegType mask = static_cast<RegType>( bits );
@@ -432,7 +432,7 @@ inline BitFields readBits( Register<RegType, BitFields, FieldMask> &reg,
 }
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline bool areBitsSet( Register<RegType, BitFields, FieldMask> &reg,
+inline bool areBitsSet( Register<RegType, BitFields, FieldMask> const &reg,
                         BitFields bits )
 {
 	RegType value = *reg.m_register & reg.m_mask;
@@ -442,7 +442,7 @@ inline bool areBitsSet( Register<RegType, BitFields, FieldMask> &reg,
 }
 
 template<typename RegType, typename BitFields, typename FieldMask>
-inline bool areBitsCleared( Register<RegType, BitFields, FieldMask> &reg,
+inline bool areBitsCleared( Register<RegType, BitFields, FieldMask> const &reg,
                             BitFields bits )
 {
 	RegType value = *reg.m_register & reg.m_mask;

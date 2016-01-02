@@ -1,11 +1,12 @@
 #include "../HAL/RCC/RCC.hpp"
 #include "../HAL/Gpio/Gpio.h"
+#include "../Drivers/SystemTime.h"
 #include "startup.hpp"
 
 int main( void )
 {
 	InitApplication();
-	stm32::rcc::RCC clock = stm32::rcc::RCC::GetClock();
+	stm32::rcc::RCC &clock = stm32::rcc::RCC::GetClock();
 
 	clock.GetControlRegister().SetBits( stm32::rcc::cr::BitFields::HsiOutEnabled
 	    | stm32::rcc::cr::BitFields::HsiOn );
@@ -21,6 +22,12 @@ int main( void )
 	    | stm32::rcc::cier::BitFields::LsiRdy
 	    | stm32::rcc::cier::BitFields::MsiRdy
 	    | stm32::rcc::cier::BitFields::PllRdy );
+
+	stm32::drivers::SystemTime &sys_time =
+	    stm32::drivers::SystemTime::GetSystemTime();
+
+	sys_time.Configure( 16000000u );
+	sys_time.Enable();
 
 	clock.GetIoPortEnableRegiser().SetBits( stm32::rcc::iopenr::BitFields::PortA
 	    | stm32::rcc::iopenr::BitFields::PortC );
@@ -46,19 +53,17 @@ int main( void )
 	                        stm32::gpio::OutputSpeed::Slow,
 	                        stm32::gpio::PullUpDown::None );
 
-	uint32_t count = 0u;
+	uint32_t start = sys_time.GetTime();
 
 	for ( ;; )
 	{
-		if ( count == 100000u )
+		if ( (sys_time.GetTime() - start) >= 1000u )
 		{
-			count = 0u;
+			start += 1000u;
 
 			bool new_value = !gpio->areOutputsSet( stm32::gpio::Pin::Pin3 );
 			gpio->WriteOutput( stm32::gpio::Pin::Pin3, new_value );
 		}
-
-		count += 1;
 	}
 
 	return 0;

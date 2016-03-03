@@ -55,8 +55,8 @@ SECTIONS
 	{
 		. = ALIGN(4);
 		__data_start__ = .;
-		*.data
-		*.data*
+		*(.data)
+		*(.data*)
 		. = ALIGN(4);
 		__data_end__ = .;
 	} > ram
@@ -64,9 +64,9 @@ SECTIONS
 	.bss :
 	{
 		__bss_start__ = .;
-		*.bss
-		*.bss*
-		*COMMON
+		*(.bss)
+		*(.bss*)
+		*(COMMON)
 		. = ALIGN(4);
 		__bss_end__ = .;
 	} > ram
@@ -94,6 +94,10 @@ SECTIONS
 	r_gpiod =  0x50000c00;
 	r_gpioe =  0x50001000;
 	/* r_gpioh =  0x50001C00; */ /* TODO: check if h is also available! */
+	
+	r_spi1 = 0x40013000;
+	
+	r_adc = 0x40012400;
 	
 	r_clock =  0x40021000;
 	

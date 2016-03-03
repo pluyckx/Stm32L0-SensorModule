@@ -9,6 +9,7 @@
 #define SRC_HAL_REGISTER_HPP_
 
 #include "stdint.h"
+#include <limits>
 
 namespace stm32
 {
@@ -71,7 +72,7 @@ template<typename RegType, typename BitFields, typename FieldMask>
 class Register
 {
 	public:
-		inline Register( RegType &reg, RegType mask );
+		inline Register( volatile RegType &reg, RegType mask );
 
 		inline void SetBits( BitFields value );
 		inline void ClearBits( BitFields value );
@@ -123,7 +124,7 @@ template<typename RegType, typename FieldMask>
 class Register<RegType, void, FieldMask>
 {
 	public:
-		inline Register( RegType &reg, RegType mask );
+		inline Register( volatile RegType &reg, RegType mask );
 
 		inline void Set( RegType value );
 		inline void Set( RegType value, FieldMask mask );
@@ -150,7 +151,7 @@ template<typename RegType, typename BitFields>
 class Register<RegType, BitFields, void>
 {
 	public:
-		inline Register( RegType &reg, RegType mask );
+		inline Register( volatile RegType &reg, RegType mask );
 
 		inline void SetBits( BitFields value );
 		inline void ClearBits( BitFields value );
@@ -196,7 +197,7 @@ template<typename RegType>
 class Register<RegType, void, void>
 {
 	public:
-		inline Register( RegType &reg, RegType mask );
+		inline Register( volatile RegType &reg, RegType mask );
 
 		inline void Set( RegType value );
 
@@ -217,7 +218,8 @@ class Register<RegType, void, void>
 
 /* Implementation for primary template */
 template<typename RegType, typename BitFields, typename FieldMask>
-Register<RegType, BitFields, FieldMask>::Register( RegType &reg, RegType mask )
+Register<RegType, BitFields, FieldMask>::Register( volatile RegType &reg,
+                                                   RegType mask )
 		: m_mask( mask ), m_register( &reg )
 {
 }
@@ -286,7 +288,8 @@ bool Register<RegType, BitFields, FieldMask>::AreBitsCleared( BitFields fields )
 /* Implementation for masked register template */
 
 template<typename RegType, typename FieldMask>
-Register<RegType, void, FieldMask>::Register( RegType &reg, RegType mask )
+Register<RegType, void, FieldMask>::Register( volatile RegType &reg,
+                                              RegType mask )
 		: m_mask( mask ), m_register( &reg )
 {
 }
@@ -324,7 +327,8 @@ RegType Register<RegType, void, FieldMask>::Read( FieldMask mask ) const
 /* Implementation for bitfield register */
 
 template<typename RegType, typename BitFields>
-Register<RegType, BitFields, void>::Register( RegType &reg, RegType mask )
+Register<RegType, BitFields, void>::Register( volatile RegType &reg,
+                                              RegType mask )
 		: m_mask( mask ), m_register( &reg )
 {
 }
@@ -374,13 +378,13 @@ bool Register<RegType, BitFields, void>::AreBitsSet( BitFields fields ) const
 template<typename RegType, typename BitFields>
 bool Register<RegType, BitFields, void>::AreBitsCleared( BitFields fields ) const
 {
-	return AreBitsCleared( fields );
+	return areBitsCleared( *this, fields );
 }
 
 /* Implementation of register without fieldmasks and bitfields */
 
 template<typename RegType>
-Register<RegType, void, void>::Register( RegType &reg, RegType mask )
+Register<RegType, void, void>::Register( volatile RegType &reg, RegType mask )
 		: m_register( &reg ), m_mask( mask )
 {
 
@@ -456,7 +460,7 @@ inline void set( Register<RegType, BitFields, FieldMask> &reg,
 template<typename RegType, typename BitFields, typename FieldMask>
 inline RegType read( Register<RegType, BitFields, FieldMask> const &reg )
 {
-	return read( reg, reg.m_mask );
+	return read( reg, std::numeric_limits<RegType>::max() );
 }
 
 template<typename RegType, typename BitFields, typename FieldMask>

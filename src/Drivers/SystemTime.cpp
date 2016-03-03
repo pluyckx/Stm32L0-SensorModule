@@ -21,6 +21,11 @@ SystemTime::SystemTime()
 
 }
 
+SystemTime::SystemTime(SystemTime &ref)
+{
+	(void)ref;
+}
+
 SystemTime &SystemTime::GetSystemTime()
 {
 	return m_systemtime;
@@ -56,6 +61,16 @@ void SystemTime::Enable()
 uint32_t SystemTime::GetTime()
 {
 	return m_time;
+}
+
+
+void SystemTime::Sleep(uint32_t ms)
+{
+	uint32_t start = GetTime();
+
+	while( GetTime() - start < ms)
+	{
+	}
 }
 
 } /* namespace drivers */

@@ -94,6 +94,8 @@ class Gpio
 		                      OutputSpeed speed,
 		                      PullUpDown pullup_down );
 
+		void ConfigureAlternate( Pin pins, Alternative alt );
+
 		uint32_t ReadInput( Pin pins );
 		uint32_t ReadOutput( Pin pins );
 		bool areInputsSet( Pin pins );

@@ -12,10 +12,17 @@ namespace stm32
 namespace hal
 {
 
+Adc Adc::m_adc;
+
 Adc::Adc()
 {
 	// TODO Auto-generated constructor stub
 
+}
+
+Adc &Adc::GetInstance()
+{
+	return m_adc;
 }
 
 } /* namespace hal */

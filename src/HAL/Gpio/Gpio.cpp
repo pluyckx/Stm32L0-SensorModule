@@ -126,8 +126,7 @@ void Gpio::ConfigureOutput( Pin pins,
 	uint32_t tmp_pullup_down = m_gpio->pull_up_down & ~mode_mask;
 	uint32_t output_type_value = m_gpio->output_type
 	    & ~static_cast<uint32_t>( pins );
-	uint32_t output_speed = m_gpio->output_speed
-	    & ~static_cast<uint32_t>( pins );
+	uint32_t output_speed = m_gpio->output_speed & ~static_cast<uint32_t>( pins );
 
 	tmp_mode |= mode_value;
 	tmp_pullup_down |= pullup_down_value;
@@ -141,6 +140,36 @@ void Gpio::ConfigureOutput( Pin pins,
 	m_gpio->output_type = output_type_value;
 	m_gpio->pull_up_down = pullup_down_value;
 	m_gpio->output_speed = output_speed;
+}
+
+void Gpio::ConfigureAlternate( Pin pins, Alternative alt )
+{
+	uint32_t iPins = static_cast<uint32_t>( pins );
+	uint32_t pin = 0;
+	volatile uint32_t *alternatReg = 0;
+
+	while ( iPins > 0 )
+	{
+		if ( iPins & 0x1 )
+		{
+			alternatReg =
+			    (pin >= 8) ? &m_gpio->alternate_func_high :
+			                 &m_gpio->alternate_func_low;
+			uint32_t shift = (pin < 8) ? pin * 4 : (pin - 8) * 4;
+
+			uint32_t regValue = *alternatReg & ~(0x0F << shift);
+			regValue = static_cast<uint32_t>( alt ) << shift;
+
+			*alternatReg = regValue;
+
+			uint32_t tmp = m_gpio->mode & ~(0x3 << (pin * 2));
+			tmp |= 0x2 << (pin * 2);
+			m_gpio->mode = tmp;
+		}
+
+		iPins >>= 1u;
+		pin += 1u;
+	}
 }
 
 uint32_t Gpio::ReadInput( Pin pins )
@@ -172,7 +201,7 @@ void Gpio::WriteOutput( Pin pins, bool value )
 	uint32_t tmp = static_cast<uint32_t>( pins );
 	uint32_t new_value = ReadOutput( Pin::All );
 
-	if(value)
+	if ( value )
 	{
 		new_value |= tmp;
 	}

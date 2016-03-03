@@ -30,9 +30,12 @@ class SystemTime
 
 		uint32_t GetTime();
 
+		void Sleep(uint32_t ms);
+
 		friend void ::NVIC_SysTickHandler();
 	private:
 		SystemTime();
+		SystemTime(SystemTime &ref);
 
 		volatile uint32_t m_time;
 

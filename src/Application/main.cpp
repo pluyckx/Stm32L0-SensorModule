@@ -81,11 +81,11 @@ int main(void) {
 	{
 		RCC->APB1ENR |= 1 << 21; // enable clock
 		RCC->CCIPR |= 0b01 << 12; // select system clock for I2C
-		I2C1->TIMINGR = (3 << 28) | (0x4 << 20) | (0x02 << 16) | (0xC3 << 8)
-				| (0xC7 << 0);
+		/*I2C1->TIMINGR = (3 << 28) | (0x4 << 20) | (0x02 << 16) | (0xC3 << 8)
+				| (0xC7 << 0);*/
 
-		/*I2C1->TIMINGR = (3 << 28) | (0x4 << 20) | (0x02 << 16) | (0xF << 8)
-						| (0x13 << 0);*/
+		I2C1->TIMINGR = (3 << 28) | (0x4 << 20) | (0x02 << 16) | (0xF << 8)
+						| (0x13 << 0);
 
 		// 10kHz
 		// presc 28   -> 3
@@ -106,6 +106,7 @@ int main(void) {
 
 	uint8_t receivedData[3] = { 0 };
 
+	volatile int32_t temp;
 	/* Test I2C */
 	{
 		constexpr uint32_t addrMask = 0x3FF;
@@ -148,6 +149,10 @@ int main(void) {
 		I2C1->CR2 |= 1 << 13;
 
 		uint32_t received = 0;
+		int32_t Stemp;
+		int32_t const a = 17572;
+		int32_t const b = -4685;
+		int32_t const d = 1 << 16;
 
 		while (received < 3) {
 			do {
@@ -162,6 +167,9 @@ int main(void) {
 				I2C1->CR2 |= 1 << 14;
 			}
 		}
+
+		Stemp = (receivedData[0] << 8) | (receivedData[1] & (~0x03));
+		temp = (int32_t)((int64_t)a * (int64_t)Stemp + (int64_t)b * (int64_t)d) / (int64_t)d;
 	}
 
 	while (true) {
